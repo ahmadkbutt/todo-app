@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import compression from "compression";
 import cors from "cors";
-import { MONGODB_URI } from "./util/secrets";
+import { MONGODB_URI, BASE_URL, PORT } from "./util/secrets";
 import { UserRoutes } from "./routes/userRoutes";
 import {TodoRoutes} from "./routes/todoRoutes";
 
@@ -22,7 +22,7 @@ class Server {
     }
 
     public config(): void {
-        this.app.set("port", process.env.PORT || 3000);
+        this.app.set("port", PORT || 3000);
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: false }));
         this.app.use(compression());
@@ -67,7 +67,7 @@ class Server {
         const port = this.app.get("port");
         this.app.listen(port, () => {
             console.log(
-                `API is running at http:localhost:${port}`
+                `API is running at ${BASE_URL}:${port}`
             );
         });
     }
