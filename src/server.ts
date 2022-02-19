@@ -4,6 +4,7 @@ import compression from "compression";
 import cors from "cors";
 import { MONGODB_URI } from "./util/secrets";
 import { UserRoutes } from "./routes/userRoutes";
+import {TodoRoutes} from "./routes/todoRoutes";
 
 class Server {
     public app: express.Application;
@@ -17,6 +18,7 @@ class Server {
 
     public routes(): void {
         this.app.use("/api/user", new UserRoutes().router);
+        this.app.use("/api/todos", new TodoRoutes().router);
     }
 
     public config(): void {

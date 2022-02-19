@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model, Error } from "mongoose";
+import { Document, Schema, Model, model } from "mongoose";
 
 export interface ITodo extends Document {
     todo: String,
@@ -14,4 +14,4 @@ export const todoSchema = new Schema({
 
 
 
-export const Product: Model<ITodo> = model<ITodo>("Todo", todoSchema);
+export const Todo: Model<ITodo> = model<ITodo>("Todo", todoSchema);
