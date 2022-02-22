@@ -32,7 +32,8 @@ export class UserController {
                 const token = jwt.sign({ username, scope: req.body.scope }, JWT_SECRET);
                 res.status(200).send({ token: token });
             } else res.status(401).send({message: "Invalid Credentials"})
+        } else {
+            res.status(400).send({message: 'Unauthorized'});
         }
-        res.status(400).send({message: 'Unauthorized'});
     }
 }

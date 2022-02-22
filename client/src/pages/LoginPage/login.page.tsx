@@ -3,6 +3,8 @@ import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { Button, Col, Label, Row } from 'reactstrap';
 import axios from 'axios';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 interface LoginProps {
     username?: string,
@@ -16,6 +18,8 @@ interface ElementProps {
     password?: string
 }
 
+let navigate: NavigateFunction;
+
 const LoginPage = (props: LoginProps) => {
     const loginPageStyle = {
         margin: "32px auto 37px",
@@ -26,9 +30,10 @@ const LoginPage = (props: LoginProps) => {
         boxShadow: "0px 0px 10px 10px rgba(0,0,0,0.15)"
     };
     const { touched, errors } = props;
-    console.log(process.env);
+    navigate = useNavigate();
     return (
         <React.Fragment>
+            <ToastContainer/>
             <div className="container">
                 <div className="login-wrapper" style={loginPageStyle}>
                     <h2>Login Page</h2>
@@ -76,8 +81,14 @@ const LoginFormik = withFormik({
     }),
     handleSubmit: (values) => {
         const {REACT_APP_API_URL} = process.env;
-        axios.post(`http://localhost:3000/api/login`,values)
-        .then(data => console.log)
+        axios.post(`${REACT_APP_API_URL}/user/login`,values)
+        .then(res => {
+            if(res?.data?.token){
+                localStorage.setItem('bearerToken', res.data.token);
+                toast("Logged in successfully");
+                navigate('/');
+            }
+        });
     }
 })(LoginPage);
 

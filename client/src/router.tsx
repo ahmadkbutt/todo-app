@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/home.page';
+import HomePage from './pages/HomePage/home.page';
 import LoginPage from './pages/LoginPage/login.page';
 
 const loading = (
