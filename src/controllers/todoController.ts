@@ -30,7 +30,6 @@ export class TodoController {
     public async updateTodo(req: Request, res: Response): Promise<void> {
         const {todo, status, id} = req.body;
         const isTodoUpdated = await Todo.findOneAndUpdate({ _id: new ObjectId(id) }, {todo, status});
-        console.log(isTodoUpdated);
         if (isTodoUpdated ) {
             const updatedTodo = { todo, status, _id: id };
             res.json({ status: res.status, data: updatedTodo, message: "Todo updated successfully" });
