@@ -79,7 +79,8 @@ const LoginFormik = withFormik({
         username: Yup.string().required('username is required'),
         password: Yup.string().required('Password is required')
     }),
-    handleSubmit: (values) => {
+    handleSubmit: (values, {setSubmitting}) => {
+        setSubmitting(true)
         const {REACT_APP_API_URL} = process.env;
         axios.post(`${REACT_APP_API_URL}/user/login`,values)
         .then(res => {
